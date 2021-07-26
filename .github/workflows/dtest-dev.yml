@@ -12,14 +12,23 @@ on:
 
 jobs:
 
-  say_hello:
-
+  # Correct branch and command message gate:
+  workflow_allowed:
     runs-on: ubuntu-latest
     steps:
       - name: Extract branch name
         shell: bash
         run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF##*/})"
         id: extract_branch
+      - run: echo "Wrong command entered (\"DEVELOPMENT\" expected), or incorrect branch for this workflow (\"dev\" expected)"
+        if: "contains(github.event.inputs.command, 'DEVELOPMENT') && steps.extract_branch.outputs.branch != 'dev'"
+      - run: exit 1
+        if: "contains(github.event.inputs.command, 'DEVELOPMENT') && steps.extract_branch.outputs.branch != 'dev'"
+
+
+  say_hello:
+    needs: [workflow_allowed]
+    runs-on: ubuntu-latest
+    steps:
       - run: |
           echo "Going to DEVELOPMENT..........."
-        if: "contains(github.event.inputs.command, 'DEVELOPMENT') && steps.extract_branch.outputs.branch == 'dev'"
