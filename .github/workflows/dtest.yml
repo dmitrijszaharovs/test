@@ -4,15 +4,16 @@ on:
   workflow_dispatch:
     inputs:
       command:
-        description: 'Type DEPLOY to start'
+        description: 'Type PRODUCTION to start'
         required: true
-        default: 'Not deploy'
+        default: '...'
     branches:
-      - dev
+      - main
 
 jobs:
   say_hello:
+    if: "contains(github.event.inputs.command, 'PRODUCTION')"
     runs-on: ubuntu-latest
     steps:
       - run: |
-          echo "Command = ${{ github.event.inputs.command }}"
+          echo "Going to PRODUCTION!!!"
