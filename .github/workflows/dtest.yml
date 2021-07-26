@@ -21,9 +21,9 @@ jobs:
         run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF##*/})"
         id: extract_branch
       - run: echo "Wrong command entered (\"PRODUCTION\" expected), or incorrect branch for this workflow (\"main\" expected)"
-        if: "contains(github.event.inputs.command, 'PRODUCTION') && steps.extract_branch.outputs.branch != 'main'"
+        if: "!contains(github.event.inputs.command, 'PRODUCTION') || steps.extract_branch.outputs.branch != 'main'"
       - run: exit 1
-        if: "contains(github.event.inputs.command, 'PRODUCTION') && steps.extract_branch.outputs.branch != 'main'"
+        if: "!contains(github.event.inputs.command, 'PRODUCTION') || steps.extract_branch.outputs.branch != 'main'"
 
   say_hello:
     needs: [workflow_allowed]
