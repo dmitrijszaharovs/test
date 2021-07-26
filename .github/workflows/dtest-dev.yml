@@ -11,16 +11,20 @@ on:
       - dev
 
 jobs:
-  # initial-job:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #   - name: Extract branch name
-  #     shell: bash
-  #     run: echo "${GITHUB_REF#refs/heads/}"
-  #     id: extract_branch
+  initial-job:
+      name: Initial operations
+      runs-on: ubuntu-latest
+      outputs:
+        env: ${{ steps.vars.outputs.env }}
+      steps:
+      - name: Find branch name
+        shell: bash
+        run: echo "CURRENT_BRANCH=$(echo ${GITHUB_REF#refs/heads/} | tr / -)" >> $GITHUB_ENV
+      - id: vars
+        run: echo "::set-output name=env::$CURRENT_BRANCH"
 
   say_hello:
-    if: "contains(github.event.inputs.command, 'DEVELOPMENT') && 'dev'==${GITHUB_REF#refs/heads/}"
+    if: "contains(github.event.inputs.command, 'DEVELOPMENT') && 'dev'==${{ env.CURRENT_BRANCH }}"
     runs-on: ubuntu-latest
     steps:
       - run: |

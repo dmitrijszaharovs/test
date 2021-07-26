@@ -11,6 +11,20 @@ on:
       - main
 
 jobs:
+    initial-job:
+        name: Initial operations
+        runs-on: ubuntu-latest
+        outputs:
+          env: ${{ steps.vars.outputs.env }}
+        steps:
+        - name: Find branch name
+          shell: bash
+          run: echo "CURRENT_BRANCH=$(echo ${GITHUB_REF#refs/heads/} | tr / -)" >> $GITHUB_ENV
+
+        - id: vars
+          run: echo "::set-output name=env::$CURRENT_BRANCH"
+
+
   # initial-job:
   #   runs-on: ubuntu-latest
   #   steps:
@@ -20,7 +34,7 @@ jobs:
   #     id: extract_branch
 
   say_hello:
-    if: "contains(github.event.inputs.command, 'PRODUCTION') && 'main'==${GITHUB_REF#refs/heads/}"
+    if: "contains(github.event.inputs.command, 'PRODUCTION') && 'main'==${{ env.CURRENT_BRANCH }}"
     runs-on: ubuntu-latest
     steps:
       - run: |
