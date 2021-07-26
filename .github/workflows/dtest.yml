@@ -12,7 +12,7 @@ on:
 
 jobs:
   say_hello:
-    if: "contains(github.event.inputs.command, 'PRODUCTION')"
+    if: "contains(github.event.inputs.command, 'PRODUCTION') && 'main'==${GITHUB_REF##*/}"
     runs-on: ubuntu-latest
     steps:
       - run: |
