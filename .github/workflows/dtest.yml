@@ -33,7 +33,7 @@ jobs:
   #     id: extract_branch
 
   say_hello:
-    if: "contains(github.event.inputs.command, 'PRODUCTION') && 'main'==${{initial-job.outputs.env}}"
+    if: "contains(github.event.inputs.command, 'PRODUCTION') && 'main'==initial-job.outputs.env"
     runs-on: ubuntu-latest
     steps:
       - run: |
