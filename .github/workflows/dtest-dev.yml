@@ -1,32 +1,13 @@
 name: DTest for DEV
 
 on:
-  workflow_dispatch:
-    inputs:
-      command:
-        description: 'Type DEVELOPMENT to start'
-        required: true
-        default: '...'
+  push:
     branches:
       - dev
 
 jobs:
 
-  # Correct branch and command message gate:
-  workflow_allowed:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Extract branch name
-        shell: bash
-        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF##*/})"
-        id: extract_branch
-      - run: |
-          echo "Wrong command entered (\"DEVELOPMENT\" expected), or incorrect branch for this workflow (\"dev\" expected)"
-          exit 1
-        if: "!contains(github.event.inputs.command, 'DEVELOPMENT') || steps.extract_branch.outputs.branch != 'dev'"
-
-
-  say_hello:
+  go_to_dev_env:
     needs: [workflow_allowed]
     runs-on: ubuntu-latest
     steps:
