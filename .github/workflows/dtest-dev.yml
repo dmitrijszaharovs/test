@@ -16,11 +16,11 @@ jobs:
     steps:
     - name: Extract branch name
       shell: bash
-      run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+      run: echo "${GITHUB_REF#refs/heads/}"
       id: extract_branch
 
   say_hello:
-    if: "contains(github.event.inputs.command, 'DEVELOPMENT') && 'main'==${{ steps.extract_branch.outputs.branch }}"
+    if: "contains(github.event.inputs.command, 'DEVELOPMENT') && 'main'=='ssss'"
     runs-on: ubuntu-latest
     steps:
       - run: |
