@@ -20,9 +20,9 @@ jobs:
         shell: bash
         run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF##*/})"
         id: extract_branch
-      - run: echo "Wrong command entered (\"DEVELOPMENT\" expected), or incorrect branch for this workflow (\"dev\" expected)"
-        if: "!contains(github.event.inputs.command, 'DEVELOPMENT') || steps.extract_branch.outputs.branch != 'dev'"
-      - run: exit 1
+      - run: |
+          echo "Wrong command entered (\"DEVELOPMENT\" expected), or incorrect branch for this workflow (\"dev\" expected)"
+          exit 1
         if: "!contains(github.event.inputs.command, 'DEVELOPMENT') || steps.extract_branch.outputs.branch != 'dev'"
 
 
