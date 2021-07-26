@@ -8,7 +8,6 @@ on:
 jobs:
 
   go_to_dev_env:
-    needs: [workflow_allowed]
     runs-on: ubuntu-latest
     steps:
       - run: |
