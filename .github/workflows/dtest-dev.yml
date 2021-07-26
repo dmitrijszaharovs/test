@@ -24,7 +24,7 @@ jobs:
         run: echo "::set-output name=env::$CURRENT_BRANCH"
 
   say_hello:
-    if: "contains(github.event.inputs.command, 'DEVELOPMENT') && 'dev'==${{ env.CURRENT_BRANCH }}"
+    if: "contains(github.event.inputs.command, 'DEVELOPMENT') && 'dev'==$CURRENT_BRANCH"
     runs-on: ubuntu-latest
     steps:
       - run: |
