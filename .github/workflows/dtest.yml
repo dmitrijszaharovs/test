@@ -4,16 +4,27 @@ on:
   workflow_dispatch:
     inputs:
       command:
-        description: 'Type PRODUCTION to start'
+        description: 'Type PRODUCTIONCA to start'
         required: true
         default: '...'
       choice:
         type: choice
         description: Make a choice
         options:
-        - service 1
-        - service 2
-        - service 3
+        - Application
+        - Authentication
+        - Authorization
+        - Cis
+        - Customer
+        - Logging
+        - Program
+        - Projects
+        - SearchAPI
+        - Services
+        - System
+        - Users
+        - Utility
+        - Workcenter
 jobs:
 
   # Correct branch and command message gate:
@@ -30,8 +41,8 @@ jobs:
         if: "!contains(github.event.inputs.command, 'PRODUCTION') || steps.extract_branch.outputs.branch != 'main'"
 
 
-  build1:
-    if: "contains(github.event.inputs.choice, 'service 1')"
+  buildApplication:
+    if: "contains(github.event.inputs.choice, 'Application')"
     needs: [workflow_allowed]
     runs-on: ubuntu-latest
     steps:
@@ -39,10 +50,10 @@ jobs:
 
       - name: greet
         run: |
-          echo "Building service 1"
+          echo "Building Application"
 
-  build2:
-    if: "contains(github.event.inputs.choice, 'service 2')"
+  buildAuthentication:
+    if: "contains(github.event.inputs.choice, 'Authentication')"
     needs: [workflow_allowed]
     runs-on: ubuntu-latest
     steps:
@@ -50,4 +61,37 @@ jobs:
 
       - name: greet
         run: |
-          echo "Building service 2"
+          echo "Building Authentication"
+
+  buildAuthorization:
+    if: "contains(github.event.inputs.choice, 'Authorization')"
+    needs: [workflow_allowed]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: greet
+        run: |
+          echo "Building Authorization"
+
+  buildCis:
+    if: "contains(github.event.inputs.choice, 'Cis')"
+    needs: [workflow_allowed]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: greet
+        run: |
+          echo "Building Cis"
+
+  buildCustomer:
+    if: "contains(github.event.inputs.choice, 'Customer')"
+    needs: [workflow_allowed]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: greet
+        run: |
+          echo "Building Customer"
