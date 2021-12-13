@@ -9,7 +9,7 @@ on:
         default: '...'
       choice:
         type: choice
-        description: Make a choice
+        description: Which service to deploy?
         options:
         - Application
         - Authentication
