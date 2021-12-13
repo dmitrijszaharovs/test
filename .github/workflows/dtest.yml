@@ -42,7 +42,7 @@ jobs:
           echo "Building service 1"
 
   build2:
-    if: "contains(github.event.inputs.choice, 'service 2'))"
+    if: "contains(github.event.inputs.choice, 'service 2')"
     needs: [workflow_allowed]
     runs-on: ubuntu-latest
     steps:
