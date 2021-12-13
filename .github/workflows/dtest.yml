@@ -3,31 +3,28 @@ name: DTest
 on:
   workflow_dispatch:
     inputs:
-      command:
-        description: 'Type PRODUCTION to start'
-        required: true
-        default: '...'
-    branches:
-      - main
-
+      environment:
+        type: environment
+        description: Select the environment
+      boolean:
+        type: boolean
+        description: True or False
+      choice:
+        type: choice
+        description: Make a choice
+        options:
+        - foo
+        - bar
+        - baz
 jobs:
-
-  # Correct branch and command message gate:
-  workflow_allowed:
+  build:
     runs-on: ubuntu-latest
-    steps:
-      - name: Extract branch name
-        shell: bash
-        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF##*/})"
-        id: extract_branch
-      - run: |
-          echo "Wrong command entered (\"PRODUCTION\" expected), or incorrect branch for this workflow (\"main\" expected)"
-          exit 1
-        if: "!contains(github.event.inputs.command, 'PRODUCTION') || steps.extract_branch.outputs.branch != 'main'"
 
-  say_hello:
-    needs: [workflow_allowed]
-    runs-on: ubuntu-latest
     steps:
-      - run: |
-          echo "Going to PRODUCTION!!!! Yahooo!!!"
+      - uses: actions/checkout@v2
+
+      - name: greet
+        run: |
+          echo "environment is ${{ github.event.inputs.environment }}"
+          echo "boolean is ${{ github.event.inputs.boolean }}"
+          echo "choice is ${{ github.event.inputs.choice }}"
