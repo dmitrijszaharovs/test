@@ -3,24 +3,51 @@ name: DTest
 on:
   workflow_dispatch:
     inputs:
-      boolean:
-        type: boolean
-        description: True or False
+      command:
+        description: 'Type PRODUCTION to start'
+        required: true
+        default: '...'
       choice:
         type: choice
         description: Make a choice
         options:
-        - foo
-        - bar
-        - baz
+        - service 1
+        - service 2
+        - service 3
 jobs:
-  build:
-    runs-on: ubuntu-latest
 
+  # Correct branch and command message gate:
+  workflow_allowed:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Extract branch name
+        shell: bash
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF##*/})"
+        id: extract_branch
+      - run: |
+          echo "Wrong command entered (\"PRODUCTION\" expected), or incorrect branch for this workflow (\"main\" expected)"
+          exit 1
+        if: "!contains(github.event.inputs.command, 'PRODUCTION') || steps.extract_branch.outputs.branch != 'main'"
+
+
+  build1:
+    if: "contains(github.event.inputs.choice, 'service 1'))"
+    needs: [workflow_allowed]
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
 
       - name: greet
         run: |
-          echo "boolean is ${{ github.event.inputs.boolean }}"
-          echo "choice is ${{ github.event.inputs.choice }}"
+          echo "Building service 1"
+
+  build2:
+    if: "contains(github.event.inputs.choice, 'service 2'))"
+    needs: [workflow_allowed]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: greet
+        run: |
+          echo "Building service 2"
