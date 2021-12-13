@@ -31,7 +31,7 @@ jobs:
 
 
   build1:
-    if: "contains(github.event.inputs.choice, 'service 1'))"
+    if: "contains(github.event.inputs.choice, 'service 1')"
     needs: [workflow_allowed]
     runs-on: ubuntu-latest
     steps:
