@@ -1,4 +1,4 @@
-name: DTest
+name: VisionAPI CA Test
 
 on:
   workflow_dispatch:
