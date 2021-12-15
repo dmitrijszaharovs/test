@@ -59,7 +59,7 @@ jobs:
           echo "Building Application"
 
   buildApplication:
-    if: "(contains(github.event.inputs.choice, 'Application') && github.event.inputs.DeployAllServices == 'false') or github.event.inputs.DeployAllServices == 'true'"
+    if: "(contains(github.event.inputs.choice, 'Application') && github.event.inputs.DeployAllServices == 'false') || github.event.inputs.DeployAllServices == 'true'"
     needs: [workflow_allowed]
     runs-on: ubuntu-latest
     steps:
@@ -70,7 +70,7 @@ jobs:
           echo "Building Application"
 
   buildAuthentication:
-    if: "(contains(github.event.inputs.choice, 'Authentication') && github.event.inputs.DeployAllServices == 'false') or github.event.inputs.DeployAllServices == 'true'"
+    if: "(contains(github.event.inputs.choice, 'Authentication') && github.event.inputs.DeployAllServices == 'false') || github.event.inputs.DeployAllServices == 'true'"
     needs: [workflow_allowed]
     runs-on: ubuntu-latest
     steps:
@@ -81,7 +81,7 @@ jobs:
           echo "Building Authentication"
 
   buildAuthorization:
-    if: "(contains(github.event.inputs.choice, 'Authorization') && github.event.inputs.DeployAllServices == 'false') or github.event.inputs.DeployAllServices == 'true'"
+    if: "(contains(github.event.inputs.choice, 'Authorization') && github.event.inputs.DeployAllServices == 'false') || github.event.inputs.DeployAllServices == 'true'"
     needs: [workflow_allowed]
     runs-on: ubuntu-latest
     steps:
@@ -92,7 +92,7 @@ jobs:
           echo "Building Authorization"
 
   buildCis:
-    if: "(contains(github.event.inputs.choice, 'Cis') && github.event.inputs.DeployAllServices == 'false') or github.event.inputs.DeployAllServices == 'true'"
+    if: "(contains(github.event.inputs.choice, 'Cis') && github.event.inputs.DeployAllServices == 'false') || github.event.inputs.DeployAllServices == 'true'"
     needs: [workflow_allowed]
     runs-on: ubuntu-latest
     steps:
@@ -103,7 +103,7 @@ jobs:
           echo "Building Cis"
 
   buildCustomer:
-    if: "(contains(github.event.inputs.choice, 'Customer') && github.event.inputs.DeployAllServices == 'false') or github.event.inputs.DeployAllServices == 'true'"
+    if: "(contains(github.event.inputs.choice, 'Customer') && github.event.inputs.DeployAllServices == 'false') || github.event.inputs.DeployAllServices == 'true'"
     needs: [workflow_allowed]
     runs-on: ubuntu-latest
     steps:
