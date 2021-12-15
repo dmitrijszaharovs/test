@@ -7,24 +7,52 @@ on:
         description: 'Type PRODUCTIONCA to start'
         required: true
         default: '...'
-      choice:
-        type: choice
-        description: Which service to deploy?
-        options:
-        - Application
-        - Authentication
-        - Authorization
-        - Cis
-        - Customer
-        - Logging
-        - Program
-        - Projects
-        - SearchAPI
-        - Services
-        - System
-        - Users
-        - Utility
-        - Workcenter
+      Config:
+        type: boolean
+        description: Configuration only
+      Application:
+        type: boolean
+        description: Application
+      Authentication:
+        type: boolean
+        description: Authentication
+      Authorization:
+        type: boolean
+        description: Authorization
+      Cis:
+        type: boolean
+        description: Cis
+      Customer:
+        type: boolean
+        description: Customer
+      Logging:
+        type: boolean
+        description: Logging
+      Program:
+        type: boolean
+        description: Program
+      Projects:
+        type: boolean
+        description: Projects
+      SearchAPI:
+        type: boolean
+        description: SearchAPI
+      Services:
+        type: boolean
+        description: Services
+      System:
+        type: boolean
+        description: System
+      Users:
+        type: boolean
+        description: Users
+      Utility:
+        type: boolean
+        description: Utility
+      Workcenter:
+        type: boolean
+        description: Workcenter
+
 jobs:
 
   # Correct branch and command message gate:
@@ -42,7 +70,7 @@ jobs:
 
 
   buildApplication:
-    if: "contains(github.event.inputs.choice, 'Application')"
+    if: "${{github.event.inputs.Application}}"
     needs: [workflow_allowed]
     runs-on: ubuntu-latest
     steps:
@@ -53,7 +81,7 @@ jobs:
           echo "Building Application"
 
   buildAuthentication:
-    if: "contains(github.event.inputs.choice, 'Authentication')"
+    if: "${{github.event.inputs.Authentication}}"
     needs: [workflow_allowed]
     runs-on: ubuntu-latest
     steps:
@@ -64,7 +92,7 @@ jobs:
           echo "Building Authentication"
 
   buildAuthorization:
-    if: "contains(github.event.inputs.choice, 'Authorization')"
+    if: "${{github.event.inputs.Authorization}}"
     needs: [workflow_allowed]
     runs-on: ubuntu-latest
     steps:
@@ -75,7 +103,7 @@ jobs:
           echo "Building Authorization"
 
   buildCis:
-    if: "contains(github.event.inputs.choice, 'Cis')"
+    if: "${{github.event.inputs.Cis}}"
     needs: [workflow_allowed]
     runs-on: ubuntu-latest
     steps:
@@ -86,7 +114,7 @@ jobs:
           echo "Building Cis"
 
   buildCustomer:
-    if: "contains(github.event.inputs.choice, 'Customer')"
+    if: "${{github.event.inputs.Customer}}"
     needs: [workflow_allowed]
     runs-on: ubuntu-latest
     steps:
