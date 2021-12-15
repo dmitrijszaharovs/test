@@ -7,25 +7,30 @@ on:
         description: 'Type PRODUCTIONCA to start'
         required: true
         default: '...'
-      Config:
+      DeploySettings:
         type: boolean
-        description: Configuration only
-      Application:
+        description: Deploy settings
+      DeployAllServices:
         type: boolean
-        description: Application
-      Authentication:
-        type: boolean
-        description: Authentication
-      Authorization:
-        type: boolean
-        description: Authorization
-      Cis:
-        type: boolean
-        description: Cis
-      Customer:
-        type: boolean
-        description: Customer
-
+        description: Deploy all services
+      choice:
+        type: choice
+        description: Deploy service
+        options:
+        - Application
+        - Authentication
+        - Authorization
+        - Cis
+        - Customer
+        - Logging
+        - Program
+        - Projects
+        - SearchAPI
+        - Services
+        - System
+        - Users
+        - Utility
+        - Workcenter
 jobs:
 
   # Correct branch and command message gate:
@@ -42,8 +47,19 @@ jobs:
         if: "!contains(github.event.inputs.command, 'PRODUCTION') || steps.extract_branch.outputs.branch != 'main'"
 
 
+  deploySettings:
+    if: "github.event.inputs.DeploySettings == 'true'"
+    needs: [workflow_allowed]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: greet
+        run: |
+          echo "Building Application"
+
   buildApplication:
-    if: "github.event.inputs.Application == 'true'"
+    if: "(contains(github.event.inputs.choice, 'Application') && github.event.inputs.DeployAllServices == 'false') or github.event.inputs.DeployAllServices == 'true'"
     needs: [workflow_allowed]
     runs-on: ubuntu-latest
     steps:
@@ -54,7 +70,7 @@ jobs:
           echo "Building Application"
 
   buildAuthentication:
-    if: "github.event.inputs.Authentication == 'true'"
+    if: "(contains(github.event.inputs.choice, 'Authentication') && github.event.inputs.DeployAllServices == 'false') or github.event.inputs.DeployAllServices == 'true'"
     needs: [workflow_allowed]
     runs-on: ubuntu-latest
     steps:
@@ -65,7 +81,7 @@ jobs:
           echo "Building Authentication"
 
   buildAuthorization:
-    if: "github.event.inputs.Authorization == 'true'"
+    if: "(contains(github.event.inputs.choice, 'Authorization') && github.event.inputs.DeployAllServices == 'false') or github.event.inputs.DeployAllServices == 'true'"
     needs: [workflow_allowed]
     runs-on: ubuntu-latest
     steps:
@@ -76,7 +92,7 @@ jobs:
           echo "Building Authorization"
 
   buildCis:
-    if: "github.event.inputs.Cis == 'true'"
+    if: "(contains(github.event.inputs.choice, 'Cis') && github.event.inputs.DeployAllServices == 'false') or github.event.inputs.DeployAllServices == 'true'"
     needs: [workflow_allowed]
     runs-on: ubuntu-latest
     steps:
@@ -87,7 +103,7 @@ jobs:
           echo "Building Cis"
 
   buildCustomer:
-    if: "github.event.inputs.Customer == 'true'"
+    if: "(contains(github.event.inputs.choice, 'Customer') && github.event.inputs.DeployAllServices == 'false') or github.event.inputs.DeployAllServices == 'true'"
     needs: [workflow_allowed]
     runs-on: ubuntu-latest
     steps:
