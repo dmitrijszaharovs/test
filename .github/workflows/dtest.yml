@@ -25,33 +25,6 @@ on:
       Customer:
         type: boolean
         description: Customer
-      Logging:
-        type: boolean
-        description: Logging
-      Program:
-        type: boolean
-        description: Program
-      Projects:
-        type: boolean
-        description: Projects
-      SearchAPI:
-        type: boolean
-        description: SearchAPI
-      Services:
-        type: boolean
-        description: Services
-      System:
-        type: boolean
-        description: System
-      Users:
-        type: boolean
-        description: Users
-      Utility:
-        type: boolean
-        description: Utility
-      Workcenter:
-        type: boolean
-        description: Workcenter
 
 jobs:
 
