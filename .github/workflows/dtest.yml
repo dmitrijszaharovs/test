@@ -43,7 +43,7 @@ jobs:
 
 
   buildApplication:
-    if: "${{github.event.inputs.Application}}"
+    if: "github.event.inputs.Application == 'true'"
     needs: [workflow_allowed]
     runs-on: ubuntu-latest
     steps:
@@ -54,7 +54,7 @@ jobs:
           echo "Building Application"
 
   buildAuthentication:
-    if: "${{github.event.inputs.Authentication}}"
+    if: "github.event.inputs.Authentication == 'true'"
     needs: [workflow_allowed]
     runs-on: ubuntu-latest
     steps:
@@ -65,7 +65,7 @@ jobs:
           echo "Building Authentication"
 
   buildAuthorization:
-    if: "${{github.event.inputs.Authorization}}"
+    if: "github.event.inputs.Authorization == 'true'"
     needs: [workflow_allowed]
     runs-on: ubuntu-latest
     steps:
@@ -76,7 +76,7 @@ jobs:
           echo "Building Authorization"
 
   buildCis:
-    if: "${{github.event.inputs.Cis}}"
+    if: "github.event.inputs.Cis == 'true'"
     needs: [workflow_allowed]
     runs-on: ubuntu-latest
     steps:
@@ -87,7 +87,7 @@ jobs:
           echo "Building Cis"
 
   buildCustomer:
-    if: "${{github.event.inputs.Customer}}"
+    if: "github.event.inputs.Customer == 'true'"
     needs: [workflow_allowed]
     runs-on: ubuntu-latest
     steps:
