@@ -122,6 +122,12 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: greet
+      - name: deployApplication
+        if: "contains(github.event.inputs.choice, 'Application') || github.event.inputs.DeployAllServices == 'true'"
         run: |
-          echo "Deployment....."
+          echo "Deploying Application"
+
+      - name: deployCis
+        if: "contains(github.event.inputs.choice, 'Cis') || github.event.inputs.DeployAllServices == 'true'"
+        run: |
+          echo "Deploying Cis"
