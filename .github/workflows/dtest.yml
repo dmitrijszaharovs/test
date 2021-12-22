@@ -116,7 +116,8 @@ jobs:
 
 
   deploy-all:
-    needs: [workflow_allowed]
+    if: "always()"
+    needs: [workflow_allowed,deploySettings,buildApplication,buildAuthentication,buildAuthorization,buildCis,buildCustomer]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
