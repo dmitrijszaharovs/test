@@ -112,3 +112,15 @@ jobs:
       - name: greet
         run: |
           echo "Building Customer"
+
+
+
+  deploy-all:
+    needs: [workflow_allowed]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: greet
+        run: |
+          echo "Deployment....."
